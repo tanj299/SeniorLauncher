@@ -1,4 +1,4 @@
-﻿package com.example.seniorlauncher
+package com.example.seniorlauncher
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -27,6 +27,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -153,9 +154,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addContactCardToGrid(grid: GridLayout, name: String, phone: String, index: Int) {
+        // Fix: Inflate correctly and assign properties directly
         val view = LayoutInflater.from(this).inflate(R.layout.item_contact_card, grid, false)
+        
         val imgAvatar = view.findViewById<ImageView>(R.id.imgContactAvatar)
-        view.findViewById<TextView>(R.id.tvContactName).text = name
+        val tvName = view.findViewById<TextView>(R.id.tvContactName)
+        tvName.text = name
 
         val photoUri = getContactPhotoUri(phone)
         if (photoUri != null) {
@@ -164,8 +168,10 @@ class MainActivity : AppCompatActivity() {
             imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
         }
 
+        // Fix: Safely cast the root layout to MaterialCardView to set the color
+        val cardView = view as MaterialCardView
         val colors = arrayOf("#E3F2FD", "#E8F5E9", "#FFF3E0", "#F3E5F5", "#E0F7FA", "#FCE4EC")
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.item_contact_card)?.setCardBackgroundColor(Color.parseColor(colors[index % colors.size]))
+        cardView.setCardBackgroundColor(Color.parseColor(colors[index % colors.size]))
 
         val params = GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)).apply {
             width = 0
