@@ -22,7 +22,7 @@
         android:layout_marginHorizontal="16dp"
         android:visibility="gone" />
 
-    <!-- Clean Top Header with Subtle SOS Action -->
+    <!-- Clean Top Header with Stacked Hierarchy -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +31,7 @@
         android:paddingHorizontal="16dp"
         android:paddingBottom="16dp">
 
+        <!-- Left Column: Clock (Row 1) & Date/Lunar (Row 2) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,32 +50,40 @@
                 android:id="@+id/tvDateAndLunar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textColor="#757575"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvBattery"
+        <!-- Right Column: Battery stacked on top of Safety Button -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#1976D2"
-            android:layout_marginEnd="16dp" />
+            android:orientation="vertical"
+            android:gravity="end">
 
-        <!-- Subdued, discreet safety trigger instead of a loud red/orange button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSos"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="🛡️ 安全"
-            android:textSize="14sp"
-            android:textColor="#757575"
-            app:strokeColor="#B0BEC5"
-            app:strokeWidth="1dp"
-            app:cornerRadius="12dp" />
+            <TextView
+                android:id="@+id/tvBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1976D2"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="4dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSos"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:text="🛡️ 安全"
+                android:textSize="14sp"
+                android:textColor="#757575"
+                app:strokeColor="#B0BEC5"
+                app:strokeWidth="1dp"
+                app:cornerRadius="12dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -104,20 +113,21 @@
         android:paddingHorizontal="8dp"
         android:alignmentMode="alignMargins" />
 
-    <!-- Premium Tab Bar Dock -->
+    <!-- Material Design Tab Bar Dock -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#FFFFFF"
         app:cardElevation="16dp"
-        app:cardCornerRadius="0dp">
+        app:cardCornerRadius="0dp"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:paddingVertical="8dp">
+            android:paddingVertical="10dp">
 
             <LinearLayout
                 android:id="@+id/btnContacts"
@@ -129,8 +139,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:paddingVertical="8dp">
-                <TextView android:text="📖" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:paddingVertical="6dp">
+                <TextView android:text="📖" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                 <TextView android:text="通訊錄" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -144,8 +154,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:paddingVertical="8dp">
-                <TextView android:text="📞" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:paddingVertical="6dp">
+                <TextView android:text="📞" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                 <TextView android:text="撥號" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -159,8 +169,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:paddingVertical="8dp">
-                <TextView android:text="📷" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:paddingVertical="6dp">
+                <TextView android:text="📷" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                 <TextView android:text="相機" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -174,8 +184,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
-                android:paddingVertical="8dp">
-                <TextView android:text="🖼️" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:paddingVertical="6dp">
+                <TextView android:text="🖼️" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
                 <TextView android:text="圖庫" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
