@@ -4,30 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5"
-    android:padding="16dp">
+    android:background="#EFF4F9"
+    android:paddingTop="16dp">
 
-    <!-- Default App Warning Banner -->
     <TextView
         android:id="@+id/tvNotDefaultWarning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFB300"
-        android:text="点击此处将此应用设为默认桌面"
+        android:text="⚠️ 點擊此處將此應用設為預設桌面"
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="12dp"
         android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="16dp"
         android:visibility="gone" />
 
-    <!-- Top Header: Clock, Date, Battery, and Softened SOS -->
+    <!-- Clean Top Header with Subtle SOS Action -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
         android:paddingBottom="16dp">
 
         <LinearLayout
@@ -40,7 +41,7 @@
                 android:id="@+id/tvClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="36sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:textColor="#212121" />
 
@@ -62,35 +63,36 @@
             android:textColor="#1976D2"
             android:layout_marginEnd="16dp" />
 
-        <!-- Replaced harsh red with Theme Accent Orange -->
+        <!-- Subdued, discreet safety trigger instead of a loud red/orange button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSos"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
-            android:layout_height="64dp"
-            android:text="紧急求助"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#F57C00"
-            app:cornerRadius="16dp" />
+            android:layout_height="48dp"
+            android:text="🛡️ 安全"
+            android:textSize="14sp"
+            android:textColor="#757575"
+            app:strokeColor="#B0BEC5"
+            app:strokeWidth="1dp"
+            app:cornerRadius="12dp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#E0E0E0"
+        android:layout_height="1dp"
+        android:background="#D1D9E0"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp" />
 
-    <!-- Dynamic Contacts Area -->
     <TextView
         android:id="@+id/tvEmptyContacts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="请在系统【通讯录】中\n将家人设置为“星标” (收藏)\n以显示在此处"
+        android:text="請在系統【通訊錄】中\n將家人設定為「星標」 (收藏)\n以顯示在此處"
         android:textSize="18sp"
-        android:textColor="#9E9E9E"
+        android:textColor="#78909C"
         android:visibility="gone" />
 
     <GridLayout
@@ -99,67 +101,83 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:columnCount="2"
+        android:paddingHorizontal="8dp"
         android:alignmentMode="alignMargins" />
 
-    <!-- Clean Bottom Dock: No Emojis, Modern Rounded Buttons -->
-    <LinearLayout
+    <!-- Premium Tab Bar Dock -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp">
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardElevation="16dp"
+        app:cardCornerRadius="0dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnContacts"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
-            android:text="通讯录"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#1976D2"
-            app:cornerRadius="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:paddingVertical="8dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPhone"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:text="拨号"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#1976D2"
-            app:cornerRadius="16dp" />
+            <LinearLayout
+                android:id="@+id/btnContacts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingVertical="8dp">
+                <TextView android:text="📖" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:text="通訊錄" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCamera"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:text="相机"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#1976D2"
-            app:cornerRadius="16dp" />
+            <LinearLayout
+                android:id="@+id/btnPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingVertical="8dp">
+                <TextView android:text="📞" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:text="撥號" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGallery"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:text="图库"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#1976D2"
-            app:cornerRadius="16dp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnCamera"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingVertical="8dp">
+                <TextView android:text="📷" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:text="相機" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnGallery"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingVertical="8dp">
+                <TextView android:text="🖼️" android:textSize="26sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <TextView android:text="圖庫" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
