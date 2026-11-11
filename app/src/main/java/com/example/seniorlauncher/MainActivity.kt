@@ -1,4 +1,4 @@
-package com.example.seniorlauncher
+﻿package com.example.seniorlauncher
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             if (level >= 0 && scale > 0) {
                 val batteryPct = (level * 100) / scale
                 val tvBattery = findViewById<TextView>(R.id.tvBattery)
-                tvBattery.text = "电量: $batteryPct%"
+                tvBattery.text = "电量: ${batteryPct}%"
                 tvBattery.setTextColor(if (batteryPct <= 20) Color.RED else Color.parseColor("#2E7D32"))
             }
         }
@@ -154,7 +154,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addContactCardToGrid(grid: GridLayout, name: String, phone: String, index: Int) {
-        // Fix: Inflate correctly and assign properties directly
         val view = LayoutInflater.from(this).inflate(R.layout.item_contact_card, grid, false)
         
         val imgAvatar = view.findViewById<ImageView>(R.id.imgContactAvatar)
@@ -168,7 +167,6 @@ class MainActivity : AppCompatActivity() {
             imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
         }
 
-        // Fix: Safely cast the root layout to MaterialCardView to set the color
         val cardView = view as MaterialCardView
         val colors = arrayOf("#E3F2FD", "#E8F5E9", "#FFF3E0", "#F3E5F5", "#E0F7FA", "#FCE4EC")
         cardView.setCardBackgroundColor(Color.parseColor(colors[index % colors.size]))
@@ -184,7 +182,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomDock() {
-        findViewById<Button>(R.id.btnContacts).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_URI)) }
+        // FIX: Directly target the contacts list directory
+        findViewById<Button>(R.id.btnContacts).setOnClickListener { 
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                type = ContactsContract.Contacts.CONTENT_TYPE
+            }
+            startActivity(intent) 
+        }
+        
         findViewById<Button>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
         findViewById<Button>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
         findViewById<Button>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
@@ -250,7 +255,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
         } else {
-            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
+            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${phoneNumber}")))
         }
     }
 
