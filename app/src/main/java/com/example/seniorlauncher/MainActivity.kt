@@ -1,5 +1,4 @@
-﻿package com.example.seniorlauncher
-
+package com.example.seniorlauncher
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -33,7 +32,6 @@ import java.util.Date
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
-
     private val REQUEST_PERMISSIONS = 100
     private val REQUEST_CALL = 101
     private val PREFS_NAME = "SeniorLauncherPrefs"
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             if (level >= 0 && scale > 0) {
                 val batteryPct = (level * 100) / scale
                 val tvBattery = findViewById<TextView>(R.id.tvBattery)
-                tvBattery.text = "电量: ${batteryPct}%"
+                tvBattery.text = "電量: $batteryPct%"
                 tvBattery.setTextColor(if (batteryPct <= 20) Color.RED else Color.parseColor("#1976D2"))
             }
         }
@@ -56,13 +54,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setupBottomDock()
         setupProtectedSettings()
-        
-        if (checkPermissions()) {
-            loadStarredContacts()
-        }
+        if (checkPermissions()) loadStarredContacts()
     }
 
     override fun onResume() {
@@ -70,10 +64,7 @@ class MainActivity : AppCompatActivity() {
         setupClock()
         checkDefaultLauncherStatus()
         registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            loadStarredContacts()
-        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) loadStarredContacts()
     }
 
     override fun onPause() {
@@ -92,27 +83,21 @@ class MainActivity : AppCompatActivity() {
             warningBanner.setOnClickListener {
                 try {
                     startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
-                    Toast.makeText(this, "请在列表中选择【简易桌面】", Toast.LENGTH_LONG).show()
-                } catch (e: Exception) {
-                    startActivity(Intent(Settings.ACTION_SETTINGS))
-                }
+                    Toast.makeText(this, "請在列表中選擇【簡易桌面】", Toast.LENGTH_LONG).show()
+                } catch (e: Exception) { startActivity(Intent(Settings.ACTION_SETTINGS)) }
             }
-        } else {
-            warningBanner.visibility = View.GONE
-        }
+        } else warningBanner.visibility = View.GONE
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            loadStarredContacts()
-        }
+        if (requestCode == REQUEST_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) loadStarredContacts()
     }
 
     private fun setupClock() {
         val now = Date()
-        findViewById<TextView>(R.id.tvClock).text = SimpleDateFormat("HH:mm", Locale.SIMPLIFIED_CHINESE).format(now)
-        findViewById<TextView>(R.id.tvDateAndLunar).text = "${SimpleDateFormat("MM月dd日 EEE", Locale.SIMPLIFIED_CHINESE).format(now)} (${LunarCalendarUtil.getTodayLunarDate()})"
+        findViewById<TextView>(R.id.tvClock).text = SimpleDateFormat("HH:mm", Locale.TRADITIONAL_CHINESE).format(now)
+        findViewById<TextView>(R.id.tvDateAndLunar).text = "${SimpleDateFormat("MM月dd日 EEE", Locale.TRADITIONAL_CHINESE).format(now)} (${LunarCalendarUtil.getTodayLunarDate()})"
     }
 
     @SuppressLint("Range")
@@ -121,10 +106,7 @@ class MainActivity : AppCompatActivity() {
         val tvEmptyContacts = findViewById<TextView>(R.id.tvEmptyContacts)
         gridContacts.removeAllViews()
 
-        val projection = arrayOf(
-            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-            ContactsContract.CommonDataKinds.Phone.NUMBER
-        )
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER)
         val selection = "${ContactsContract.CommonDataKinds.Phone.STARRED} = 1"
         
         val addedContacts = mutableSetOf<String>()
@@ -155,43 +137,50 @@ class MainActivity : AppCompatActivity() {
 
     private fun addContactCardToGrid(grid: GridLayout, name: String, phone: String, index: Int) {
         val view = LayoutInflater.from(this).inflate(R.layout.item_contact_card, grid, false)
-        
         val imgAvatar = view.findViewById<ImageView>(R.id.imgContactAvatar)
-        val tvName = view.findViewById<TextView>(R.id.tvContactName)
-        tvName.text = name
-
+        view.findViewById<TextView>(R.id.tvContactName).text = name
         val photoUri = getContactPhotoUri(phone)
-        if (photoUri != null) {
-            imgAvatar.setImageURI(photoUri)
-        } else {
-            imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
-        }
-
-        val cardView = view as MaterialCardView
-        cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"))
+        if (photoUri != null) imgAvatar.setImageURI(photoUri) else imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
 
         val params = GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)).apply {
             width = 0
             setMargins(8, 8, 8, 8)
         }
         view.layoutParams = params
-
         view.setOnClickListener { showCallConfirmationDialog(name, phone) }
         grid.addView(view)
     }
 
     private fun setupBottomDock() {
-        findViewById<Button>(R.id.btnContacts).setOnClickListener { 
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                type = ContactsContract.Contacts.CONTENT_TYPE
-            }
-            startActivity(intent) 
+        findViewById<View>(R.id.btnContacts).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = ContactsContract.Contacts.CONTENT_TYPE }) }
+        findViewById<View>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
+        findViewById<View>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
+        findViewById<View>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
+        
+        // Replaced direct SOS with second-layer safety menu trigger
+        findViewById<Button>(R.id.btnSos).setOnClickListener { showSafetyOptionsDialog() }
+    }
+
+    private fun showSafetyOptionsDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_safety_options, null)
+        dialog.setContentView(view)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.90).toInt(), android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        view.findViewById<Button>(R.id.btnCall120).setOnClickListener {
+            dialog.dismiss()
+            showCallConfirmationDialog("急救中心 (120)", "120")
         }
-        findViewById<Button>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
-        findViewById<Button>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
-        findViewById<Button>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
-        // Cleaned up emoji from programmatic call
-        findViewById<Button>(R.id.btnSos).setOnClickListener { showCallConfirmationDialog("紧急求助 (120)", "120") }
+        view.findViewById<Button>(R.id.btnCall110).setOnClickListener {
+            dialog.dismiss()
+            showCallConfirmationDialog("報警電話 (110)", "110")
+        }
+        view.findViewById<Button>(R.id.btnCancelSafety).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun setupProtectedSettings() {
@@ -206,7 +195,6 @@ class MainActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_call_confirmation, null)
         dialog.setContentView(view)
-
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.90).toInt(), android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
 
@@ -229,7 +217,6 @@ class MainActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_pin_lock, null)
         dialog.setContentView(view)
-
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.85).toInt(), android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
 
@@ -241,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
                 try { startActivity(Intent(Settings.ACTION_HOME_SETTINGS)) } catch (e: Exception) { startActivity(Intent(Settings.ACTION_SETTINGS)) }
             } else {
-                Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "密碼錯誤", Toast.LENGTH_SHORT).show()
                 etPin.setText("")
             }
         }
@@ -252,9 +239,7 @@ class MainActivity : AppCompatActivity() {
     private fun makeCall(phoneNumber: String) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
-        } else {
-            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${phoneNumber}")))
-        }
+        } else startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
     }
 
     private fun getContactPhotoUri(phoneNumber: String): Uri? {
