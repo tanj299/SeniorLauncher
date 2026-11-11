@@ -59,15 +59,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         checkPermissions()
-        setupClock()
-        setupContactCards()
         setupBottomDock()
         setupProtectedSettings()
     }
 
     override fun onResume() {
         super.onResume()
+        // Loading data in onResume ensures photos refresh immediately after permissions are granted
         setupClock()
+        setupContactCards() 
         registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
@@ -215,12 +215,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getContactPhotoUri(phoneNumber: String): Uri? {
-        val uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
-        contentResolver.query(uri, arrayOf(ContactsContract.PhoneLookup.PHOTO_URI), null, null, null)?.use { cursor ->
-            if (cursor.moveToFirst()) {
-                val photoUriString = cursor.getString(0)
-                if (photoUriString != null) return Uri.parse(photoUriString)
+        // FIX: Safely abort if permissions are not yet granted to prevent the crash
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            return null
+        }
+        try {
+            val uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
+            contentResolver.query(uri, arrayOf(ContactsContract.PhoneLookup.PHOTO_URI), null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val photoUriString = cursor.getString(0)
+                    if (photoUriString != null) return Uri.parse(photoUriString)
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         return null
     }
