@@ -31,7 +31,8 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
-    private val REQUEST_CALL_PERMISSION = 101
+    private val REQUEST_PERMISSIONS = 100
+    private val REQUEST_CALL = 101
     private val PREFS_NAME = "SeniorLauncherPrefs"
     private val KEY_PIN = "admin_pin"
     private val DEFAULT_PIN = "1234"
@@ -58,22 +59,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkPermissions()
         setupBottomDock()
         setupProtectedSettings()
+        
+        // Check permissions on launch; if granted, load photos immediately
+        if (checkPermissions()) {
+            setupContactCards()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        // Loading data in onResume ensures photos refresh immediately after permissions are granted
         setupClock()
-        setupContactCards() 
         registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
     override fun onPause() {
         super.onPause()
         unregisterReceiver(batteryReceiver)
+    }
+
+    // Refreshes the UI instantly the moment the user clicks "Allow" on the permission popup
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_PERMISSIONS) {
+            setupContactCards()
+        }
     }
 
     private fun setupClock() {
@@ -91,9 +102,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupContactCards() {
-        bindContactCard(R.id.cardContact1, R.id.imgContact1, "👩 大女儿 (张敏)", "13800138000")
-        bindContactCard(R.id.cardContact2, R.id.imgContact2, "👨 小儿子 (张强)", "13900139000")
-        bindContactCard(R.id.cardContact3, R.id.imgContact3, "👵 老伴 (王芳)", "13600136000")
+        // REPLACE THESE STRINGS with your actual family names and phone numbers
+        bindContactCard(R.id.cardContact1, R.id.imgContact1, "👩 大女儿", "13800138000")
+        bindContactCard(R.id.cardContact2, R.id.imgContact2, "👨 小儿子", "13900139000")
+        bindContactCard(R.id.cardContact3, R.id.imgContact3, "👵 老伴", "13600136000")
         bindContactCard(R.id.cardContact4, R.id.imgContact4, "🩺 社区医院", "120")
     }
 
@@ -208,14 +220,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun makeCall(phoneNumber: String) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL_PERMISSION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
         } else {
             startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
         }
     }
 
     private fun getContactPhotoUri(phoneNumber: String): Uri? {
-        // FIX: Safely abort if permissions are not yet granted to prevent the crash
+        // Hard safety check: aborts silently if permission isn't granted yet
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             return null
         }
@@ -233,11 +245,13 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
-    private fun checkPermissions() {
+    private fun checkPermissions(): Boolean {
         val permissions = arrayOf(Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS)
         val missing = permissions.filter { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
         if (missing.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, missing.toTypedArray(), 100)
+            ActivityCompat.requestPermissions(this, missing.toTypedArray(), REQUEST_PERMISSIONS)
+            return false
         }
+        return true
     }
 }
