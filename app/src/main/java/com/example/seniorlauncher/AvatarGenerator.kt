@@ -8,9 +8,12 @@ import android.graphics.Rect
 import android.graphics.Typeface
 
 object AvatarGenerator {
+    // Strict Blue & Orange Palette
     private val COLOR_PALETTE = intArrayOf(
-        0xFF1976D2.toInt(), 0xFF2E7D32.toInt(), 0xFFD32F2F.toInt(),
-        0xFF7B1FA2.toInt(), 0xFFE65100.toInt(), 0xFF00838F.toInt()
+        0xFF1976D2.toInt(), // Primary Blue
+        0xFFF57C00.toInt(), // Orange
+        0xFF0288D1.toInt(), // Light Blue
+        0xFFE65100.toInt()  // Deep Orange
     )
 
     fun createInitialAvatar(name: String, sizePx: Int = 144): Bitmap {

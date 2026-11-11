@@ -1,4 +1,4 @@
-package com.example.seniorlauncher
+﻿package com.example.seniorlauncher
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
             if (level >= 0 && scale > 0) {
                 val batteryPct = (level * 100) / scale
                 val tvBattery = findViewById<TextView>(R.id.tvBattery)
-                tvBattery.text = "电量: $batteryPct%"
-                tvBattery.setTextColor(if (batteryPct <= 20) Color.RED else Color.parseColor("#2E7D32"))
+                tvBattery.text = "电量: ${batteryPct}%"
+                tvBattery.setTextColor(if (batteryPct <= 20) Color.RED else Color.parseColor("#1976D2"))
             }
         }
     }
@@ -167,7 +167,6 @@ class MainActivity : AppCompatActivity() {
             imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
         }
 
-        // Fixed: Set background color strictly to Light Blue (#E3F2FD) without arrays
         val cardView = view as MaterialCardView
         cardView.setCardBackgroundColor(Color.parseColor("#E3F2FD"))
 
@@ -191,7 +190,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
         findViewById<Button>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
         findViewById<Button>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
-        findViewById<Button>(R.id.btnSos).setOnClickListener { showCallConfirmationDialog("🚨 紧急求助 (120)", "120") }
+        // Cleaned up emoji from programmatic call
+        findViewById<Button>(R.id.btnSos).setOnClickListener { showCallConfirmationDialog("紧急求助 (120)", "120") }
     }
 
     private fun setupProtectedSettings() {
@@ -253,7 +253,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
         } else {
-            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
+            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:${phoneNumber}")))
         }
     }
 
