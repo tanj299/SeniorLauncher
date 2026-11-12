@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -72,12 +72,15 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="4dp" />
 
+            <!-- Subdued Shield Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSos"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
-                android:text="🛡️ 安全"
+                android:text="安全"
+                app:icon="@drawable/ic_shield"
+                app:iconTint="#757575"
                 android:textSize="14sp"
                 android:textColor="#757575"
                 app:strokeColor="#B0BEC5"
@@ -113,7 +116,7 @@
         android:paddingHorizontal="8dp"
         android:alignmentMode="alignMargins" />
 
-    <!-- Material Design Tab Bar Dock -->
+    <!-- Material Design Tab Bar Dock using Vector Icons -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,8 +143,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <TextView android:text="📖" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                <TextView android:text="通訊錄" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_contacts" />
+                <TextView android:text="通訊錄" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -155,8 +158,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <TextView android:text="📞" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                <TextView android:text="撥號" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_phone" />
+                <TextView android:text="撥號" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -170,8 +173,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <TextView android:text="📷" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                <TextView android:text="相機" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_camera" />
+                <TextView android:text="相機" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -185,8 +188,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <TextView android:text="🖼️" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                <TextView android:text="圖庫" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="2dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_gallery" />
+                <TextView android:text="圖庫" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
