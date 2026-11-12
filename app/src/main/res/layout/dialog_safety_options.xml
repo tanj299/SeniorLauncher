@@ -1,57 +1,72 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#FFFFFF"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    app:cardCornerRadius="28dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#FFFFFF">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🛡️ 緊急與安全協助"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#212121"
-        android:layout_marginBottom="8dp" />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="請選擇需要撥打的緊急求助電話"
-        android:textSize="16sp"
-        android:textColor="#757575"
-        android:layout_marginBottom="24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🛡️ 緊急與安全協助"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btnCall120"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:text="🚨 撥打 120 (急救中心)"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="#D32F2F"
-        android:layout_marginBottom="12dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請選擇需要撥打的緊急求助電話"
+            android:textSize="16sp"
+            android:textColor="#757575"
+            android:layout_marginBottom="28dp" />
 
-    <Button
-        android:id="@+id/btnCall110"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:text="👮 撥打 110 (報警電話)"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="#1976D2"
-        android:layout_marginBottom="16dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCall120"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:text="🚨 撥打 120 (急救中心)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#D32F2F"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btnCancelSafety"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="返回主畫面"
-        android:textSize="18sp"
-        app:backgroundTint="#757575" />
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCall110"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:text="👮 撥打 110 (報警電話)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#1976D2"
+            app:cornerRadius="16dp"
+            android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelSafety"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="返回主畫面"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#757575"
+            app:strokeColor="#B0BEC5"
+            app:strokeWidth="1dp"
+            app:cornerRadius="16dp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
