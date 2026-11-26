@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Rounded Material House Silhouette centered inside the 66dp safe zone -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,31.5 L31,50.2 C29.8,51.2 30.5,53 32,53 H37 V73 C37,75.2 38.8,77 41,77 H67 C69.2,77 71,75.2 71,73 V53 H76 C77.5,53 78.2,51.2 77,50.2 L54,31.5 Z" />
+    <!-- Warm Orange Accent Heart inside the house -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M54,67.5 L52.4,66.0 C46.8,60.9 43,57.5 43,53.3 C43,49.9 45.7,47.2 49.1,47.2 C51.0,47.2 52.8,48.1 54,49.5 C55.2,48.1 57.0,47.2 58.9,47.2 C62.3,47.2 65,49.9 65,53.3 C65,57.5 61.2,60.9 55.6,66.0 L54,67.5 Z" />
+</vector>
