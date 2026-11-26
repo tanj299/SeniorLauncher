@@ -26,7 +26,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -156,8 +155,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
         findViewById<View>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
         findViewById<View>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
-        
-        // Replaced direct SOS with second-layer safety menu trigger
+        findViewById<View>(R.id.btnYoutube).setOnClickListener {
+            val launchIntent = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
+            if (launchIntent != null) {
+                startActivity(launchIntent)
+            } else {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.youtube.com")))
+            }
+        }
         findViewById<Button>(R.id.btnSos).setOnClickListener { showSafetyOptionsDialog() }
     }
 

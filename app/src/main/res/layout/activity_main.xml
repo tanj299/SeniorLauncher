@@ -116,7 +116,7 @@
         android:paddingHorizontal="8dp"
         android:alignmentMode="alignMargins" />
 
-    <!-- Material Design Tab Bar Dock using Vector Icons -->
+    <!-- Material Design 5-Tab Bar Dock -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,8 +143,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_contacts" />
-                <TextView android:text="通訊錄" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_dock_contacts" />
+                <TextView android:text="通訊錄" android:textSize="13sp" android:textStyle="bold" android:textColor="#1976D2" android:maxLines="1" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -158,8 +158,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_phone" />
-                <TextView android:text="撥號" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_dock_phone" />
+                <TextView android:text="撥號" android:textSize="13sp" android:textStyle="bold" android:textColor="#1976D2" android:maxLines="1" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -173,8 +173,8 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_camera" />
-                <TextView android:text="相機" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_dock_camera" />
+                <TextView android:text="相機" android:textSize="13sp" android:textStyle="bold" android:textColor="#1976D2" android:maxLines="1" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
@@ -188,8 +188,23 @@
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
                 android:paddingVertical="6dp">
-                <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_dock_gallery" />
-                <TextView android:text="圖庫" android:textSize="14sp" android:textStyle="bold" android:textColor="#1976D2" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_dock_gallery" />
+                <TextView android:text="圖庫" android:textSize="13sp" android:textStyle="bold" android:textColor="#1976D2" android:maxLines="1" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnYoutube"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:paddingVertical="6dp">
+                <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@drawable/ic_dock_youtube" />
+                <TextView android:text="YouTube" android:textSize="13sp" android:textStyle="bold" android:textColor="#1976D2" android:maxLines="1" android:layout_marginTop="6dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
