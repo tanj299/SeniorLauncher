@@ -1,4 +1,5 @@
 package com.example.seniorlauncher
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -32,6 +33,7 @@ import java.util.Date
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
+
     private val REQUEST_PERMISSIONS = 100
     private val REQUEST_CALL = 101
     private val PREFS_NAME = "SeniorLauncherPrefs"
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setupBottomDock()
         setupProtectedSettings()
 
@@ -62,7 +65,10 @@ class MainActivity : AppCompatActivity() {
                 // Intentionally empty: prevent the home launcher from finishing and re-rendering
             }
         })
-        if (checkPermissions()) loadStarredContacts()
+
+        if (checkPermissions()) {
+            loadStarredContacts()
+        }
     }
 
     override fun onResume() {
@@ -70,7 +76,9 @@ class MainActivity : AppCompatActivity() {
         setupClock()
         checkDefaultLauncherStatus()
         registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) loadStarredContacts()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            loadStarredContacts()
+        }
     }
 
     override fun onPause() {
@@ -90,14 +98,20 @@ class MainActivity : AppCompatActivity() {
                 try {
                     startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
                     Toast.makeText(this, "請在列表中選擇【簡易桌面】", Toast.LENGTH_LONG).show()
-                } catch (e: Exception) { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                } catch (e: Exception) {
+                    startActivity(Intent(Settings.ACTION_SETTINGS))
+                }
             }
-        } else warningBanner.visibility = View.GONE
+        } else {
+            warningBanner.visibility = View.GONE
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) loadStarredContacts()
+        if (requestCode == REQUEST_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            loadStarredContacts()
+        }
     }
 
     private fun setupClock() {
@@ -114,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
         val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER)
         val selection = "${ContactsContract.CommonDataKinds.Phone.STARRED} = 1"
-        
+
         val addedContacts = mutableSetOf<String>()
         var count = 0
         val maxContacts = 6
@@ -146,7 +160,11 @@ class MainActivity : AppCompatActivity() {
         val imgAvatar = view.findViewById<ImageView>(R.id.imgContactAvatar)
         view.findViewById<TextView>(R.id.tvContactName).text = name
         val photoUri = getContactPhotoUri(phone)
-        if (photoUri != null) imgAvatar.setImageURI(photoUri) else imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
+        if (photoUri != null) {
+            imgAvatar.setImageURI(photoUri)
+        } else {
+            imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 144))
+        }
 
         val params = GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)).apply {
             width = 0
@@ -158,10 +176,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomDock() {
-        findViewById<View>(R.id.btnContacts).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = ContactsContract.Contacts.CONTENT_TYPE }) }
-        findViewById<View>(R.id.btnPhone).setOnClickListener { startActivity(Intent(Intent.ACTION_DIAL)) }
-        findViewById<View>(R.id.btnCamera).setOnClickListener { startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) }
-        findViewById<View>(R.id.btnGallery).setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" }) }
+        findViewById<View>(R.id.btnContacts).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply { type = ContactsContract.Contacts.CONTENT_TYPE })
+        }
+        findViewById<View>(R.id.btnPhone).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_DIAL))
+        }
+        findViewById<View>(R.id.btnCamera).setOnClickListener {
+            startActivity(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA))
+        }
+        findViewById<View>(R.id.btnGallery).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply { type = "image/*" })
+        }
         findViewById<View>(R.id.btnYoutube).setOnClickListener {
             val launchIntent = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
             if (launchIntent != null) {
@@ -195,13 +221,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun setupProtectedSettings()
-
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Intentionally empty: prevent the home launcher from finishing and re-rendering
-            }
-        }) {
+    private fun setupProtectedSettings() {
         findViewById<View>(R.id.tvClock).setOnLongClickListener {
             showPinVerificationDialog()
             true
@@ -220,7 +240,11 @@ class MainActivity : AppCompatActivity() {
         view.findViewById<TextView>(R.id.tvDialogPhone).text = phoneNumber
         val imgAvatar = view.findViewById<ImageView>(R.id.imgDialogAvatar)
         val photoUri = getContactPhotoUri(phoneNumber)
-        if (photoUri != null) imgAvatar.setImageURI(photoUri) else imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 200))
+        if (photoUri != null) {
+            imgAvatar.setImageURI(photoUri)
+        } else {
+            imgAvatar.setImageBitmap(AvatarGenerator.createInitialAvatar(name, 200))
+        }
 
         view.findViewById<Button>(R.id.btnConfirmCall).setOnClickListener {
             dialog.dismiss()
@@ -244,7 +268,11 @@ class MainActivity : AppCompatActivity() {
         view.findViewById<Button>(R.id.btnConfirmPin).setOnClickListener {
             if (etPin.text.toString().trim() == savedPin) {
                 dialog.dismiss()
-                try { startActivity(Intent(Settings.ACTION_HOME_SETTINGS)) } catch (e: Exception) { startActivity(Intent(Settings.ACTION_SETTINGS)) }
+                try {
+                    startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+                } catch (e: Exception) {
+                    startActivity(Intent(Settings.ACTION_SETTINGS))
+                }
             } else {
                 Toast.makeText(this, "密碼錯誤", Toast.LENGTH_SHORT).show()
                 etPin.setText("")
@@ -257,7 +285,9 @@ class MainActivity : AppCompatActivity() {
     private fun makeCall(phoneNumber: String) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
-        } else startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
+        } else {
+            startActivity(Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber")))
+        }
     }
 
     private fun getContactPhotoUri(phoneNumber: String): Uri? {
@@ -267,7 +297,9 @@ class MainActivity : AppCompatActivity() {
             contentResolver.query(uri, arrayOf(ContactsContract.PhoneLookup.PHOTO_URI), null, null, null)?.use { cursor ->
                 if (cursor.moveToFirst()) return Uri.parse(cursor.getString(0) ?: return null)
             }
-        } catch (e: Exception) { e.printStackTrace() }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return null
     }
 
