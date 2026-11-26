@@ -1,13 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.SeniorLauncher" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.SeniorLauncher" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">#1976D2</item>
         <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#2E7D32</item>
+        <item name="colorPrimaryContainer">#D3E4FF</item>
+        <item name="colorOnPrimaryContainer">#001C38</item>
+        <item name="colorSecondary">#F57C00</item>
         <item name="colorOnSecondary">#FFFFFF</item>
-        
-        <!-- Integrates the top system status bar seamlessly into the background -->
-        <item name="android:statusBarColor">#F5F5F5</item>
+        <item name="colorSecondaryContainer">#FFE0B2</item>
+        <item name="colorOnSecondaryContainer">#2E1500</item>
+        <item name="colorSurface">#EFF4F9</item>
+        <item name="colorSurfaceContainerLowest">#FFFFFF</item>
+        <item name="android:statusBarColor">#EFF4F9</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
