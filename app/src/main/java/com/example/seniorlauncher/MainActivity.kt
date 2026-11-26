@@ -23,6 +23,7 @@ import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -55,6 +56,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setupBottomDock()
         setupProtectedSettings()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Intentionally empty: prevent the home launcher from finishing and re-rendering
+            }
+        })
         if (checkPermissions()) loadStarredContacts()
     }
 
@@ -188,7 +195,13 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun setupProtectedSettings() {
+    private fun setupProtectedSettings()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Intentionally empty: prevent the home launcher from finishing and re-rendering
+            }
+        }) {
         findViewById<View>(R.id.tvClock).setOnLongClickListener {
             showPinVerificationDialog()
             true
