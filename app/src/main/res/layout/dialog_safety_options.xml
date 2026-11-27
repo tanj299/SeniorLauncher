@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🛡️ 緊急與安全協助"
+            android:text="緊急與安全協助"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#212121"
@@ -27,34 +27,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="請選擇需要撥打的緊急求助電話"
+            android:text="確認是否需要撥打緊急求助電話"
             android:textSize="16sp"
             android:textColor="#757575"
             android:layout_marginBottom="28dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCall120"
+            android:id="@+id/btnCall911"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:text="🚨 撥打 120 (急救中心)"
-            android:textSize="20sp"
+            android:layout_height="76dp"
+            android:text="撥打 911 (緊急求助)"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             app:backgroundTint="#D32F2F"
             app:cornerRadius="16dp"
-            android:layout_marginBottom="12dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCall110"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:text="👮 撥打 110 (報警電話)"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#1976D2"
-            app:cornerRadius="16dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="16dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelSafety"
