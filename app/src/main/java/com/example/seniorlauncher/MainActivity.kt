@@ -207,13 +207,9 @@ class MainActivity : AppCompatActivity() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout((resources.displayMetrics.widthPixels * 0.90).toInt(), android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        view.findViewById<Button>(R.id.btnCall120).setOnClickListener {
+        view.findViewById<Button>(R.id.btnCall911).setOnClickListener {
             dialog.dismiss()
-            showCallConfirmationDialog("急救中心 (120)", "120")
-        }
-        view.findViewById<Button>(R.id.btnCall110).setOnClickListener {
-            dialog.dismiss()
-            showCallConfirmationDialog("報警電話 (110)", "110")
+            showCallConfirmationDialog("緊急求助 (911)", "911")
         }
         view.findViewById<Button>(R.id.btnCancelSafety).setOnClickListener {
             dialog.dismiss()
